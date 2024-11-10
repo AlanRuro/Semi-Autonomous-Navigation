@@ -28,9 +28,9 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Get the launch directory
-    bringup_dir = get_package_share_directory('nav2_bringup')
+    bringup_dir = FindPackageShare('nav2_bringup')
     launch_dir = os.path.join(bringup_dir, 'launch')
-    tutorial_dir = FindPackageShare('tutorial_pkg')
+    tutorial_dir = FindPackageShare('reto-ciberfisicos')
 
 
     # Create the launch configuration variables

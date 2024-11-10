@@ -10,7 +10,7 @@ def generate_launch_description():
     config_file_arg = DeclareLaunchArgument(
         "config_file",
         default_value="",
-        description="Name of file rviz configuration file inside tutorial_pkg/rviz folder.",
+        description="Name of file rviz configuration file inside reto-ciberfisicos folder.",
     )
 
     rviz_config_path = PathJoinSubstitution([

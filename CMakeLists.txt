@@ -47,6 +47,9 @@ find_package(nav_msgs REQUIRED)
 find_package(map_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 
+find_package(nav2_map_server REQUIRED)
+find_package(slam_toolbox REQUIRED)
+
 set(DEPENDENCIES
   rclcpp
   std_msgs
@@ -59,6 +62,7 @@ set(DEPENDENCIES
   map_msgs
   nav2_costmap_2d
   visualization_msgs
+  slam_toolbox
 )
 
 add_executable(explore
@@ -96,7 +100,11 @@ target_include_directories(explore PUBLIC
   $<INSTALL_INTERFACE:include>)
 
 
-target_link_libraries(explore ${rclcpp_LIBRARIES})
+target_link_libraries(explore 
+  ${rclcpp_LIBRARIES}
+  ${nav2_map_server_LIBRARIES}
+  ${slam_toolbox_LIBRARIES}
+)
 
 ament_target_dependencies(explore ${DEPENDENCIES})
 
