@@ -16,8 +16,8 @@ def generate_launch_description():
 
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {
-        'use_sim_time': use_sim_time,
-        'yaml_filename': map_file}
+        'use_sim_time': use_sim_time,}
+        # 'yaml_filename': map_file}
 
     configured_params = ParameterFile(
         RewrittenYaml(
@@ -55,7 +55,8 @@ def generate_launch_description():
         output='screen',
         respawn=False,
         respawn_delay=2.0,
-        parameters=[configured_params],
+        parameters=[configured_params, 
+                    {'yaml_filename': map_file}],
         arguments=['--ros-args', '--log-level', 'info'],
         remappings=remappings
     )

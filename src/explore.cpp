@@ -24,6 +24,8 @@ namespace explore {
     this->declare_parameter<float>("gain_scale", 1.0);
     this->declare_parameter<float>("min_frontier_size", 0.5);
     this->declare_parameter<bool>("return_to_init", false);
+    this->declare_parameter<std::string>("map_file", "/home/ruro/map.yaml");
+
 
     this->get_parameter("planner_frequency", planner_frequency_);
     this->get_parameter("progress_timeout", timeout);
@@ -370,15 +372,20 @@ namespace explore {
   void Explore::saveMap() {
     auto request = std::make_shared<slam_toolbox::srv::SaveMap::Request>();
     request->name.data = this->map_file_name_;
-    auto future = this->save_map_client_->async_send_request(request);
-    RCLCPP_INFO(logger_, "Waiting to save map");
-    // future.wait();
-    if (future.get()->RESULT_SUCCESS == 0) {
-      RCLCPP_INFO(logger_, "Map successfully saved to: %s", request->name.data.c_str());
-    } else {
-      RCLCPP_ERROR(logger_, "Failed to save the map");
-    }
-  }
+
+    auto future = this->save_map_client_->async_send_request(request, 
+        [this, request](rclcpp::Client<slam_toolbox::srv::SaveMap>::SharedFuture response_future) {
+          auto response = response_future.get();
+          if (response->RESULT_SUCCESS == 0) {
+            RCLCPP_INFO(this->get_logger(), "Map successfully saved to: %s", request->name.data.c_str());
+          } else {
+            RCLCPP_ERROR(this->get_logger(), "Failed to save the map");
+          }
+        });
+
+    RCLCPP_INFO(logger_, "Map save request sent to %s", request->name.data.c_str());
+}
+
 
 } // namespace explore
 

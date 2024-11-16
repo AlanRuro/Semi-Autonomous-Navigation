@@ -28,9 +28,10 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Get the launch directory
-    bringup_dir = FindPackageShare('nav2_bringup')
+    bringup_dir = get_package_share_directory('nav2_bringup')
     launch_dir = os.path.join(bringup_dir, 'launch')
-    tutorial_dir = FindPackageShare('reto-ciberfisicos')
+    tutorial_dir = get_package_share_directory('reto-ciberfisicos')
+    # tutorial_dir = FindPackageShare('reto-ciberfisicos')
 
 
     # Create the launch configuration variables
@@ -235,6 +236,6 @@ def generate_launch_description():
 
     # Add the actions to launch all of the navigation nodes
     ld.add_action(start_robot_state_publisher_cmd)
-    ld.add_action(explore_cmd)
+    # ld.add_action(explore_cmd)
 
     return ld

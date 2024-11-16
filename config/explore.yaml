@@ -6,11 +6,11 @@ explore_node:
     costmap_updates_topic: global_costmap/costmap_updates
     visualize: true # false
     planner_frequency: 0.2
-    progress_timeout: 15.0
+    progress_timeout: 30.0 #15.0
     potential_scale: 1.0 #5.0
     orientation_scale: 0.0
     gain_scale: 3.0 #1.0
     transform_tolerance: 0.1
-    min_frontier_size: 0.1 #0.6
+    min_frontier_size: 0.01 #0.08
 
-    map_file: /home/ruro/nav2_ws/src/reto-ciberfisicos/maps/mapa.yaml
+    map_file: "/home/ruro/mapa"
