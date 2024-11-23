@@ -41,7 +41,7 @@ def generate_launch_description():
     
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=PathJoinSubstitution([reto_dir, 'maps', 'mapab.yaml']),
+        default_value=PathJoinSubstitution([reto_dir, 'maps', 'map.yaml']),
         description='Full path to map yaml file to load'
     )
     
