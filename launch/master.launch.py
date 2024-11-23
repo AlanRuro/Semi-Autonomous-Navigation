@@ -21,6 +21,7 @@ def generate_launch_description():
     explore_params_file = LaunchConfiguration('explore_params_file')
     rviz_config_file = LaunchConfiguration('rviz_config_file')
     use_rviz = LaunchConfiguration('use_rviz')
+    explore = LaunchConfiguration('explore')
     log_level = LaunchConfiguration('log_level')
 
 
@@ -86,6 +87,12 @@ def generate_launch_description():
         default_value='True',
         description='Whether to start RVIZ'
     )
+
+    declare_explore_cmd = DeclareLaunchArgument(
+        'explore',
+        default_value='False',
+        description='Whether to run exploration'
+    )
     
     declare_log_level_cmd = DeclareLaunchArgument(
         'log_level', default_value='info',
@@ -139,6 +146,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([reto_dir, 'launch', 'explore.launch.py'])
         ),
+        condition=IfCondition(explore),
         launch_arguments={
             'use_sim_time': use_sim_time,
             'params_file': explore_params_file,
@@ -157,11 +165,12 @@ def generate_launch_description():
             declare_explore_params_file_cmd,
             declare_rviz_config_file_cmd,
             declare_use_rviz_cmd,
+            declare_explore_cmd,
             declare_log_level_cmd,
             rviz_launch,
             slam_launch,
             amcl_launch,
             nav2_launch,
-            # explore_lite_launch,
+            explore_lite_launch,
         ]
     )
