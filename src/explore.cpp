@@ -326,7 +326,7 @@ namespace explore {
       break;
     case rclcpp_action::ResultCode::ABORTED:
       RCLCPP_DEBUG(logger_, "Goal was aborted");
-      frontier_blacklist_.push_back(frontier_goal);
+      // frontier_blacklist_.push_back(frontier_goal);
       // RCLCPP_DEBUG(logger_, "Adding current goal to black list");
       RCLCPP_WARN(logger_, "Adding current goal to black list Aborted");
       // If it was aborted probably because we've found another frontier goal,
@@ -334,6 +334,7 @@ namespace explore {
       return;
     case rclcpp_action::ResultCode::CANCELED:
       RCLCPP_DEBUG(logger_, "Goal was canceled");
+      RCLCPP_WARN(logger_, "Goal was canceled");
       // If goal canceled might be because exploration stopped from topic. Don't make new plan.
       return;
     default:
